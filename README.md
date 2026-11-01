@@ -117,7 +117,7 @@ cafe-sales/
 **Requisito:** [pixi](https://pixi.sh/) instalado. Ele cria o ambiente (Python 3.13 e as bibliotecas) a partir do `pixi.lock`, em Windows, Linux ou MacOS.
 
 ```bash
-git clone https://github.com/rafaelmarquesdev24/cafe-sales.git
+git clone https://github.com/rafamarqsdev24/cafe_sales
 cd cafe-sales
 pixi install
 pixi run lab
