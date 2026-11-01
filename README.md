@@ -23,18 +23,18 @@ Análise de vendas de uma cafeteria: da investigação e preparação de uma bas
 
 A operação de vendas do café registra suas transações em um sistema único, que gera uma base com 10.000 registros e 8 campos por transação. Essa base é utilizada por diferentes áreas da empresa para tomada de decisão.
 
-Uma auditoria inicial revelou que os dados não estão prontos para uso analítico: 10.082 de 80.000 células, cerca de 12,6% estão ausentes ou inválidas, e só 30,89% das linhas não têm nenhuma coluna suja. A liderança do café não consegue confiar nos relatórios de vendas gerados a partir da base atual. Abaixo, o significado de cada coluna da base:
+Uma auditoria inicial revelou que os dados não estão prontos para uso analítico: 10.082 de 80.000 células, cerca de 12.6% estão ausentes ou inválidas, e só 30.89% das linhas não têm nenhuma coluna suja. A liderança do café não consegue confiar nos relatórios de vendas gerados a partir da base atual. Abaixo, o significado de cada coluna da base:
 
-|  #  | Coluna             | Descrição                          |
-| :-: | :----------------- | :--------------------------------- |
-|  1  | `transaction_id`   | Identificador único de cada venda  |
-|  2  | `item`             | Produto vendido                    |
-|  3  | `quantity`         | Quantidade vendida                 |
-|  4  | `price_per_unit`   | Preço unitário do produto          |
-|  5  | `total_spent`      | Valor total da venda               |
-|  6  | `payment_method`   | Forma de pagamento                 |
-|  7  | `location`         | Local onde o produto foi consumido |
-|  8  | `transaction_date` | Data da venda strikethrough text   |
+|  #  | Coluna           | Descrição                          |
+| :-: | :--------------- | :--------------------------------- |
+|  1  | transaction_id   | Identificador único de cada venda  |
+|  2  | item             | Produto vendido                    |
+|  3  | quantity         | Quantidade vendida                 |
+|  4  | price_per_unit   | Preço unitário do produto          |
+|  5  | total_spent      | Valor total da venda               |
+|  6  | payment_method   | Forma de pagamento                 |
+|  7  | location         | Local onde o produto foi consumido |
+|  8  | transaction_date | Data da venda                      |
 
 ## 2. Objetivo do Projeto
 
@@ -66,7 +66,7 @@ A limpeza seguiu três regras: a base bruta nunca é alterada, um valor só é r
 
 ## 6. Perguntas de Negócio
 
-> As respostas serão calculadas em SQL, sobre o dataset limpo. As consultas ficarão em `sql/`. Cada resposta informa a parcela de vendas que ficou fora da conta por falta de informação. Você pode encontrar um maior detalhamento no arquivo [_insights_](docs/insights.md).
+> As respostas serão calculadas em SQL, sobre o dataset limpo. As consultas ficarão em `sql/`. Cada resposta informa a parcela de vendas que ficou fora da conta por falta de informação. Você pode encontrar um maior detalhamento no arquivo [*insights*](docs/insights.md).
 
 ### Faturamento e sazonalidade
 
