@@ -10,11 +10,11 @@ Contagens de valores ausentes depois de `ERROR` e `UNKNOWN` virarem `NaN`.
 
 | Coluna           | Ausentes | Tratamento                                                                    |
 | :--------------- | -------: | :---------------------------------------------------------------------------- |
-| item             |      969 | 489 itens recuperados pelo preço, o restante foi marcado com "Not Specified`  |
-| quantity         |      479 | 456 quantidades recuperada por `total_spent ÷ price_per_unit`                 |
+| item             |      969 | 489 itens recuperados pelo preço, o restante foi marcado com "Not Specified"  |
+| quantity         |      479 | 456 quantidades recuperadas por `total_spent ÷ price_per_unit`                 |
 | price_per_unit   |      533 | 479 preços unitários recuperados pelo item, e 48 por `total_spent ÷ quantity` |
 | total_spent      |      502 | 479 preços totais recuperados por `quantity × price_per_unit`                 |
-| payment_method   |    3.178 | 3.168 métodos de pahamento marcados como "Not Specified"                      |
+| payment_method   |    3.178 | 3.168 métodos de pagamento marcados como "Not Specified"                      |
 | location         |    3.961 | 3.952 localizações marcadas como "Not Specified"                              |
 | transaction_date |      460 | 460 datas de transação mantidas como ausente (`NaT`)                          |
 
@@ -24,7 +24,7 @@ Foram descartadas 26 linhas, por não ser possível recuperar usando regras de t
 
 ### 1. `ERROR` e `UNKNOWN` viram `NaN`
 
-- **Problema:** a base usa três formas de dizer que o valor falta: vazio, `ERROR` e `UNKNOWN`. No total, 10.082 de 80.000 células (12.6%) estavam sujas, e só 30.89% das linhas não tinham nenhuma coluna suja.
+- **Problema:** a base usa três formas de dizer que o valor falta: vazio, `ERROR` e `UNKNOWN`. No total: 10.082 de 80.000 células, cerca de 12.6% estavam sujas, e só 30.89% das linhas não tinham nenhuma coluna suja.
 - **Decisão:** converter `ERROR` e `UNKNOWN` para `NaN`, com uma máscara construída por [dirty_mask](../src/quality.py), e conferir por `assert` que nenhum valor sujo sobrou.
 - **Motivo:** os três casos significam a mesma coisa: valor ausente ou inválido. Com um único representante, o resto do tratamento fica simples.
 - **Verificação adicional:** em `location` e `payment_method`, o `NaN` é de 8 a 10 vezes mais frequente que `ERROR` ou `UNKNOWN`. Nas outras colunas, os três tipos têm peso parecido.
@@ -47,7 +47,7 @@ Foram descartadas 26 linhas, por não ser possível recuperar usando regras de t
 - **Tabela item → preço:** cada item tem um único preço: Cookie $1.00, Tea $1.50, Coffee $2.00, Cake e Juice $3.00, Sandwich e Smoothie $4.00, Salad $5.00. Foi construída a partir dos próprios dados, com um `assert` de que nenhum item tem dois preços.
 - **Ordem aplicada:** preço pelo item, preço por `total_spent ÷ quantity`, item pelo preço, quantidade por `total_spent ÷ price_per_unit` e total por `quantity × price_per_unit`. Cada etapa produz o que a seguinte usa.
 - **Item pelo preço:** só os preços $1.00, $1.50, $2.00 e $5.00 apontam para um único item. Os preços $3.00, com Cake ou Juice e $4.00, com Sandwich ou Smoothie são ambíguos, então esses itens não são recuperados.
-- **Regra:** todas as recuperações são matemáticos sobre valores que já existiam.
+- **Regra:** todas as recuperações são matemáticas sobre valores que já existiam.
 
 ### 5. Categoria `Not Specified` em `item`, `payment_method` e `location`
 
@@ -62,7 +62,7 @@ Foram descartadas 26 linhas, por não ser possível recuperar usando regras de t
 - **Problema:** 460 vendas sem data, cerca de 4.6%. A data é `datetime`, e uma categoria como `Not Specified` não se aplica.
 - **Alternativas consideradas:** descartar as linhas, preencher com moda, copiar a data da linha vizinha, interpolar ou sortear. Mas a base de dados não tem uma ordem cronológica, e não tem uma vantagem clara de valor mais frequente para usar a moda.
 - **Decisão:** manter as linhas com `NaT`.
-- **Motivo:** descartar tiraria 4.61% do faturamento das perguntas que não dependem da data. Preencher criaria datas que não existem. Como as vendas sem data são parecidas com as demais, manter não enviesa os resultados.
+- **Motivo:** descartar tiraria 4.7% do faturamento das perguntas que não dependem da data. Preencher criaria datas que não existem. Como as vendas sem data são parecidas com as demais, manter não enviesa os resultados.
 - **Impacto:** a coluna é a única da base final que aceita `NULL`. As perguntas por período filtram essas linhas.
 
 ### 7. Descarte das linhas sem solução numérica
