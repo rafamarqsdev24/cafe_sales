@@ -1,0 +1,25 @@
+[workspace]
+authors = ["Rafael Marques <rafaelmarques.dev24@gmail.com>"]
+channels = ["conda-forge"]
+name = "cafe-sales"
+platforms = ["win-64", "linux-64", { name = "mac-arm64", platform = "osx-arm64", macos = "13.3" }]
+version = "0.1.0"
+
+[tasks]
+lab = "jupyter lab"
+
+[dependencies]
+pandas = ">=3.0.6,<4"
+numpy = ">=2.5.3,<3"
+matplotlib-base = ">=3.11.2,<4"
+seaborn = ">=0.13.2,<0.14"
+sqlalchemy = ">=2.1.1,<3"
+psycopg2 = ">=2.9.13,<3"
+python = "3.13.*"
+ipykernel = ">=7.4.0,<8"
+jupyterlab = ">=4,<5"
+pyarrow = ">=25.0.0,<26"
+python-dotenv = ">=1.2.4,<2"
+
+[pypi-dependencies]
+cafe-sales = { path = ".", editable = true }
