@@ -62,7 +62,7 @@ A limpeza seguiu três regras: a base bruta nunca é alterada, um valor só é r
 
 - **Padronização de valores ausentes:** Os registros preenchidos como `ERROR` e `UNKNOWN` foram convertidos para `NaN` por representarem o mesmo problema de dado inválido. Essa unificação facilitou o tratamento e impactou 10.082 células, cerca de 12.6% da base.
 - **Recuperação matemática de dados:** Valores numéricos foram recalculados com base na regra lógica `quantity × price_per_unit = total_spent`, aproveitando que os preços por item são fixos e as linhas completas não possuíam divergências.
-- **Preenchimento com categoria "Not Specified":** Campos vazios de produto, forma de pagamento e canal receberam a categória `Not Specified`.
+- **Preenchimento com categoria "Not Specified":** Campos vazios de produto, forma de pagamento e canal receberam a categoria `Not Specified`.
 - **Preservação de datas ausentes:** Vendas com datas em nulas foram mantidas como `NaT`, pois não havia regras para deduzi-las e inventar períodos geraria dados falsos.
 - **Descarte de linhas sem solução:** Foram descartadas apenas as linhas que apresentavam duas ou mais colunas numéricas ausentes de forma simultânea, situação que inviabilizava qualquer cálculo por gerar equações com duas incógnitas.
 
@@ -86,7 +86,7 @@ O faturamento varia pouco, de $6,644.00 (fevereiro) a $7,353.00 (junho). O que e
 
 3. **Como as vendas se distribuem pela semana, e isso muda entre In-store e Takeaway?**
 
-Somando os dois canais, a quinta fatura mais, com $7,700.00 e a quarta menos $6,852.50. O melhor dia muda de canal: quinta tem o melhor faturameto na loja (In-store), com $4,013.00 e domingo no para viagem (Takeaway), com $3,844.50. 
+Somando os dois canais, a quinta fatura mais, com $7,700.00 e a quarta menos $6,852.50. O melhor dia muda de canal: quinta tem o melhor faturamento na loja (In-store), com $4,013.00 e domingo no para viagem (Takeaway), com $3,844.50. 
 
 Cada dia e canal tem cerca de 400 vendas, então as diferenças são pequenas e não sustentam mudar a escala.
 
