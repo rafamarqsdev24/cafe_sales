@@ -20,6 +20,7 @@ ipykernel = ">=7.4.0,<8"
 jupyterlab = ">=4,<5"
 pyarrow = ">=25.0.0,<26"
 python-dotenv = ">=1.2.4,<2"
+streamlit = ">=1.59.1,<2"
 
 [pypi-dependencies]
 cafe-sales = { path = ".", editable = true }
