@@ -1,5 +1,7 @@
 # Recuperação da Confiabilidade dos Dados de Vendas
 
+![](images/cafe_sales.png)
+
 Análise de vendas de uma cafeteria: da investigação e preparação de uma base com dados sujos até a resposta de perguntas de negócio em SQL e a divulgação dos insights obtidos.
 
 > Dataset utilizado: [Cafe Sales - Dirty Data for Cleaning Training](https://www.kaggle.com/datasets/ahmedmohamed2003/cafe-sales-dirty-data-for-cleaning-training).
@@ -178,7 +180,7 @@ git clone https://github.com/rafamarqsdev24/cafe_sales.git
 ```
 
 **SSH:**
-> Você deve criar uma chave [SSH](https://github.com/settings/ssh/new)
+> Você deve criar uma chave [SSH](https://github.com/settings/ssh/new).
 
 ```bash
 git clone git@github.com:rafamarqsdev24/cafe_sales.git
@@ -192,39 +194,33 @@ cd cafe_sales
 pixi install
 ```
 
-### 8.3 Configurar as variáveis de ambiente do banco
+### 8.3 Criar o banco de dados no PostgreSQL
 
-O notebook [03_connection_postgres.ipynb](03_connection_postgres.ipynb) carrega a base limpa no PostgreSQL. Para isso, crie um arquivo .env na raiz do projeto, copiando o modelo disponível:
+Antes de executar os `notebooks`, é preciso de um banco já criado no seu PostgreSQL local para receber os dados. Eu recomendo o [VS Code](https://code.visualstudio.com/?_exp_home=e855cfac50).
 
-```bash
-cp .env.example .env
-```
-
-> Em seguida, edite o .env com as suas credenciais no `PostgreSQL`.
-
-Essa e as próximas etapas são necessária para rodar o banco de dados no sua máquina. Caso você não seja o seu intuito, pode pular.
-
-### 8.4 Executar os notebooks em ordem
-
-Abra a IDE a ser utilizada, a partir da pasta raiz do projeto. Eu recomendo o [VS Code](https://code.visualstudio.com/?_exp_home=e855cfac50).
+> Será necessário instalar duas extensões: [SQLTools](vscode:extension/mtxr.sqltools) e [SQLTools PostgreSQL/Cockroach Driver](vscode:extension/mtxr.sqltools-driver-pg)
 
 ```bash
 code .
 ```
+Com as extensões instaladas, abra o `SQLTools` e selecione a opção do `PostgreSQL`. Nomeei a conexão em **Connection name**:
 
-Execute os notebooks na seguinte ordem:
+```text
+postgres-cafe_sales
+```
+![](images/sqltools_vscode.png)
 
-| Ordem | Notebook                     | O que ele faz                                        |
-| :--:  | :--------------------------- | :--------------------------------------------------- |
-|   1   | 01_initial_exploration.ipynb | Diagnóstico da base bruta                            |
-|   2   | 02_data_preparation.ipynb    | Limpeza, feature engineering e exportação do Parquet |
-|   3   | 03_connection_postgres.ipynb | Carga da base limpa no PostgreSQL                    |
+Após isso, selecione a opção Connection String na seção **Connect using**, e cole o comando abaixo alterando com as suas credenciais.
 
-> Atenção ao caminho relativo: os notebooks leem o CSV bruto com `../data/raw/`. Por isso, execute-os a partir da pasta notebooks/, que é o comportamento padrão do Jupyter Notebook.
+> Geralmente o username será `postgres`, o host será `localhost` e a port será `5432`. Mas é interessante verificar suas credenciais no pgAdmin.
 
-### 8.5 Criar o banco de dados no PostgreSQL
+```bash
+postgresql://username:password@host:port/cafe_sales
+```
 
-O notebook `03_connection_postgres.ipynb` precisa de um banco já criado no seu PostgreSQL local para receber os dados. Você pode fazer isso de duas formas:
+Navegue até o final da página, e selecine **SAVE CONNECTION**. Vai abrir um arquivo `.sql`, mas você não precisa salvá-lo.
+
+Caso você queira utilizar a intrerface gráfica oficial do PostrgreSQL, você deve instalar o [pgAdmin](https://www.pgadmin.org/). Siga esse passo a passo para criar o banco de dados:
 
 #### Opção A: Usando o pgAdmin (interface gráfica)
 
@@ -243,21 +239,54 @@ Se você tiver o `psql` configurado nas variáveis de ambiente, basta rodar:
 psql -U postgres -c "CREATE DATABASE cafe_sales ENCODING 'UTF8';"
 ```
 
+### 8.4 Configurar as variáveis de ambiente do banco
+
+O notebook [03_connection_postgres.ipynb](03_connection_postgres.ipynb) carrega a base limpa no PostgreSQL. Para isso, crie um arquivo .env na raiz do projeto, copiando o modelo disponível:
+
+```bash
+cp .env.example .env
+```
+
+> Em seguida, edite o .env com as suas credenciais no `PostgreSQL`, da mesma forma que fizemos na conexão com string pelo SQLTools.
+
+### 8.5 Executar os notebooks em ordem
+
+Execute os notebooks na seguinte ordem:
+
+| Ordem | Notebook                     | O que ele faz                                        |
+| :--:  | :--------------------------- | :--------------------------------------------------- |
+|   1   | 01_initial_exploration.ipynb | Diagnóstico da base bruta                            |
+|   2   | 02_data_preparation.ipynb    | Limpeza, feature engineering e exportação do Parquet |
+|   3   | 03_connection_postgres.ipynb | Carga da base limpa no PostgreSQL                    |
+
+> Atenção ao caminho relativo: os notebooks leem o CSV bruto com `../data/raw/`. Por isso, execute-os a partir da pasta notebooks/, que é o comportamento padrão do Jupyter Notebook.
+
 ### 8.6 Rodar as queries SQL
 
-#### Opção A: pgAdmin
+#### Opção A: VS Code com SQLTools
+
+Navegue até o arquivo [00_casting_numeric.sql](sql/00_casting_columns/00_casting_numeric.sql) para alterar as colunas com representações monetárias para o tipo `NUMERIC`, facilitando o uso do ROUND em outras queries.
+
+Considere selecionar as queries a serem executadas arrastando o mouse e usando o atalho de **Run Selected Query**, que no meu caso é o atalho `Ctrl + E Ctrl + E`. Caso você não consiga, é só apertar o botão direito do mouse e selecionar o comando indicado.
+
+Finalizada a etapa de tipagem das colunas no SQL: você pode executar os arquivos na ordem que preferir, visto que as análises não tem uma ordem obrigatória.
+
+#### Opção B: pgAdmin
 
 1. Abra o **Query Tool**.
-2. Cole o conteúdo de cada `.sql` ou abra via `File → Open File`.
+2. Cole o conteúdo de cada `.sql` em apenas um arquivo utilizando o terminal, dentro da pasta `sql/`:
+
+**Windows:**
+```bash
+(for /R . %f in (*.sql) do @(type "%f" & echo.)) > all_queries.sql
+```
+
+**Linux ou MacOS:**
+```bash
+find . -name "*.sql" | sort | while read -r f; do cat "$f"; echo -e "\n"; done > all_queries.sql
+```
+
 3. Selecione a query com o mouse e execute com `F5`.
-
-#### Opção B: VS Code com SQLTools
-
-1. Abra a pasta raiz do projeto no VS Code.
-2. Instale a extensão **SQLTools** + **SQLTools PostgreSQL Driver**.
-3. Configure a conexão com o banco `cafe_sales`.
-4. Abra qualquer arquivo `.sql` da pasta `sql/` e rode com `Ctrl+Enter` (ou `Cmd+Enter` no Mac).
-
 
 ## 9. Tecnologias
 
