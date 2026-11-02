@@ -48,8 +48,8 @@ O projeto segue um pipeline linear, onde cada etapa consome a saída da anterior
 
 ## 4. Etapas da Análise
 
-1. [Exploração Inicial](notebooks/01_initial-exploration.ipynb): investigação da estrutura da tabela para entender como pode ser feita a limpeza dos dados.
-2. [Preparação dos Dados](notebooks/02_data-preparation.ipynb): conversão dos tipos corretos das colunas para análises, padronização das linhas sujas em NaN, tratamento dos valores ausentes e criação de novas colunas para análises em SQL.
+1. [Exploração Inicial](notebooks/01_initial_exploration.ipynb): investigação da estrutura da tabela para entender como pode ser feita a limpeza dos dados.
+2. [Preparação dos Dados](notebooks/02_data_preparation.ipynb): conversão dos tipos corretos das colunas para análises, padronização das linhas sujas em NaN, tratamento dos valores ausentes e criação de novas colunas para análises em SQL.
 3. [Conexão ao PostgreSQL](notebooks/03_connection_postgres.ipynb): carga do dataset tratado numa tabela `sales`, via SQLAlchemy.
 4. [Análise com SQL](sql/01_performance_2023/01_overall_performance.sql): respostas de perguntas de negócio utilizando um Banco de Dados.
 5. [Visualização no Streamlit](streamlit/app.py): data app para visualização dos insights.
@@ -134,8 +134,8 @@ cafe-sales/
 ├── docs/
 ├── images/
 ├── notebooks/
-│   ├── 01_initial-exploration.ipynb
-│   ├── 02_data-preparation.ipynb
+│   ├── 01_initial_exploration.ipynb
+│   ├── 02_data_preparation.ipynb
 │   └── 03_connection_postgres.ipynb
 ├── sql/
 ├── src/
@@ -216,8 +216,8 @@ Execute os notebooks na seguinte ordem:
 
 | Ordem | Notebook                     | O que ele faz                                        |
 | :--:  | :--------------------------- | :--------------------------------------------------- |
-|   1   | 01_initial-exploration.ipynb | Diagnóstico da base bruta                            |
-|   2   | 02_data-preparation.ipynb    | Limpeza, feature engineering e exportação do Parquet |
+|   1   | 01_initial_exploration.ipynb | Diagnóstico da base bruta                            |
+|   2   | 02_data_preparation.ipynb    | Limpeza, feature engineering e exportação do Parquet |
 |   3   | 03_connection_postgres.ipynb | Carga da base limpa no PostgreSQL                    |
 
 > Atenção ao caminho relativo: os notebooks leem o CSV bruto com `../data/raw/`. Por isso, execute-os a partir da pasta notebooks/, que é o comportamento padrão do Jupyter Notebook.

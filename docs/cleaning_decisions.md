@@ -1,6 +1,6 @@
 # Decisões de Limpeza
 
-Registro das decisões tomadas no tratamento da base de vendas da cafeteria, com o motivo e o impacto de cada uma. O código está em [`notebooks/02_data-preparation.ipynb`](../notebooks/02_data-preparation.ipynb).
+Registro das decisões tomadas no tratamento da base de vendas da cafeteria, com o motivo e o impacto de cada uma. O código está em [`notebooks/02_data_preparation.ipynb`](../notebooks/02_data_preparation.ipynb).
 
 **Resultado:** a base bruta tinha 10.000 vendas, e a base limpa tem **9.974** (26 linhas removidas, cerca de 0.26%). O que não pôde ser recuperado por uma regra foi marcado como "Not Specified" ou mantido ausente. O arquivo final está em `data/processed/clean_cafe_sales.parquet`.
 
