@@ -12,7 +12,7 @@ Respostas às 8 perguntas de negócio do projeto, calculadas em SQL sobre a base
 
 ![Desempenho por trimestre](../sql/01_performance_2023/01.2_quarterly_performance.png)
 
-Consulta: [01_overall_performance.sql](../sql/01_performance_2023/overall_performance.sql)
+Consulta: [01_overall_performance.sql](../sql/01_performance_2023/01_overall_performance.sql)
 
 **O que os dados mostram**
 
