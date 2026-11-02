@@ -140,10 +140,9 @@ cafe-sales/
 ├── sql/
 ├── src/
 ├── streamlit/
-├── .env
+├── .env.example → vira .env
 ├── LICENSE
 ├── pixi.toml / pixi.lock / pyproject.toml
-├── LICENSE
 └── README.md
 ```
 
