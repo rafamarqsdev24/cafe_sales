@@ -68,7 +68,7 @@ O projeto segue um pipeline linear, onde cada etapa consome a saída da anterior
 2. [Preparação dos Dados](notebooks/02_data_preparation.ipynb): conversão dos tipos corretos das colunas para análises, padronização das linhas sujas em NaN, tratamento dos valores ausentes e criação de novas colunas para análises em SQL.
 3. [Conexão ao PostgreSQL](notebooks/03_connection_postgres.ipynb): carga do dataset tratado numa tabela `sales`, via SQLAlchemy.
 4. [Análise com SQL](sql/01_performance_2023/01_overall_performance.sql): respostas de perguntas de negócio utilizando um Banco de Dados.
-5. [Visualização no Streamlit](streamlit/app.py): data app para visualização dos insights.
+5. [Visualização no Streamlit](app.py): data app para visualização dos insights.
 
 ## 5. Principais Decisões de Limpeza
 
