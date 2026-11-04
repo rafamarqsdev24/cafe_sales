@@ -8,7 +8,7 @@ Análise de vendas de uma cafeteria: da investigação e preparação de uma bas
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white) ![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white) ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
 
-Data App Cafe Sales publicado: https://data-app-cafe-sales.streamlit.app/
+Data App Cafe Sales publicado: https://cafesales-dataapp.streamlit.app/
 
 ![Dashboard de vendas](images/dashboard_sales.png)
 
