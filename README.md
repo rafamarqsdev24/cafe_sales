@@ -8,6 +8,10 @@ Análise de vendas de uma cafeteria: da investigação e preparação de uma bas
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white) ![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white) ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
 
+Data App Cafe Sales publicado: https://data-app-cafe-sales.streamlit.app/
+
+![Dashboard de vendas](images/dashboard_sales.png)
+
 ## Índice
 
 1. [Problema de Negócio](#1-problema-de-negócio)
@@ -128,25 +132,7 @@ Por canal, o ticket médio de Digital Wallet é $9.46 na loja e $8.49 para viage
 
 ## 7. Estrutura do Projeto
 
-```text
-cafe-sales/
-├── data/
-│   ├── raw/
-│   └── processed/
-├── docs/
-├── images/
-├── notebooks/
-│   ├── 01_initial_exploration.ipynb
-│   ├── 02_data_preparation.ipynb
-│   └── 03_connection_postgres.ipynb
-├── sql/
-├── src/
-├── streamlit/
-├── .env.example → vira .env
-├── LICENSE
-├── pixi.toml / pixi.lock / pyproject.toml
-└── README.md
-```
+![](images/files_architecture.png)
 
 ## 8. Como Reproduzir
 
@@ -213,7 +199,19 @@ Com o projeto aberto no VS Code, abra cada notebook da pasta `notebooks/` e esco
 2. Escolha **Python Environments** e selecione o ambiente dentro de `.pixi/envs/default`.
 3. Execute as células. Se o ambiente não aparecer na lista, use **Enter interpreter path** e informe `.pixi\envs\default\python.exe` (Windows) ou `.pixi/envs/default/bin/python` (Linux e MacOS).
 
-### 8.3 Criar o banco de dados no PostgreSQL
+### 8.3 Executar o Data App localmente
+
+O data app lê direto a base limpa em `clean_cafe_sales.parquet`, que já está no repositório. Por isso ele não depende do PostgreSQL: basta o ambiente criado no passo 8.2. Na raiz do projeto, rode:
+
+```bash
+pixi run streamlit run streamlit/app.py
+```
+
+O Streamlit abre o app no navegador, normalmente em `http://localhost:8501`.
+
+> Os passos a seguir são só para quem quer reproduzir a carga no banco e as consultas SQL.
+
+### 8.4 Criar o banco de dados no PostgreSQL
 
 Antes de executar os `notebooks`, é preciso de um banco já criado no seu PostgreSQL local para receber os dados. 
 
@@ -256,7 +254,7 @@ Se você tiver o `psql` configurado nas variáveis de ambiente, basta rodar:
 psql -U postgres -c "CREATE DATABASE cafe_sales ENCODING 'UTF8';"
 ```
 
-### 8.4 Configurar as variáveis de ambiente do banco
+### 8.5 Configurar as variáveis de ambiente do banco
 
 O notebook [03_connection_postgres.ipynb](notebooks/03_connection_postgres.ipynb) carrega a base limpa no PostgreSQL. Para isso, crie um arquivo .env na raiz do projeto, copiando o modelo disponível:
 
@@ -266,7 +264,7 @@ cp .env.example .env
 
 > Em seguida, edite o .env com as suas credenciais no `PostgreSQL`, da mesma forma que fizemos na conexão com string pelo SQLTools.
 
-### 8.5 Executar os notebooks em ordem
+### 8.6 Executar os notebooks em ordem
 
 Execute os notebooks na seguinte ordem:
 
@@ -278,7 +276,7 @@ Execute os notebooks na seguinte ordem:
 
 > Atenção ao caminho relativo: os notebooks leem o CSV bruto com `../data/raw/`. Por isso, execute-os a partir da pasta notebooks/, que é o comportamento padrão do Jupyter Notebook.
 
-### 8.6 Rodar as queries SQL
+### 8.7 Rodar as queries SQL
 
 #### Opção A: VS Code com SQLTools
 
